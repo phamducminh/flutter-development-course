@@ -24,8 +24,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _pageTitle(),
-              _destinationDropDownWidget(),
-              _travellerInformationWidget(),
+              _bookRideWidget(),
             ],
           ),
         ),
@@ -55,6 +54,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _bookRideWidget() {
+    return Container(
+      height: _deviceHeight * 0.25,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _destinationDropDownWidget(),
+          _travellerInformationWidget(),
+        ],
+      ),
+    );
+  }
+
   Widget _destinationDropDownWidget() {
     return CustomDropDownButton(
       values: const [
@@ -66,14 +80,30 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _travellerInformationWidget() {
-    return CustomDropDownButton(
-      values: const [
-        '1',
-        '2',
-        '3',
-        '4',
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomDropDownButton(
+          values: const [
+            '1',
+            '2',
+            '3',
+            '4',
+          ],
+          width: _deviceWidth * 0.45,
+        ),
+        CustomDropDownButton(
+          values: const [
+            'Economy',
+            'Business',
+            'First',
+            'Private',
+          ],
+          width: _deviceWidth * 0.4,
+        ),
       ],
-      width: _deviceWidth * 0.45,
     );
   }
 }
