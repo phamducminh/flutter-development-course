@@ -13,9 +13,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          // color: Colors.red,
           height: _deviceHeight,
           width: _deviceWidth,
-          child: _pageTitle(),
+          padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
+          child: _destinationDropDownWidget(),
         ),
       ),
     );
@@ -39,6 +41,27 @@ class HomePage extends StatelessWidget {
           fit: BoxFit.contain,
           image: AssetImage("assets/images/astro_moon.png"),
         ),
+      ),
+    );
+  }
+
+  Widget _destinationDropDownWidget() {
+    List<DropdownMenuItem<String>> _items = [
+      'Minh Station',
+      'Chau Station',
+    ].map(
+      (e) {
+        return DropdownMenuItem(
+          value: e,
+          child: Text(e),
+        );
+      },
+    ).toList();
+
+    return Container(
+      child: DropdownButton(
+        onChanged: (_) {},
+        items: _items,
       ),
     );
   }
