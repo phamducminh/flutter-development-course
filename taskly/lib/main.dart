@@ -13,9 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Taskly',
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        // useMaterial3: true,
-        primarySwatch: Colors.red,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        useMaterial3: true,
       ),
       home: HomePage(),
     );

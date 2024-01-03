@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.red,
         toolbarHeight: _deviceHeight * 0.15,
         title: const Text(
           "Taskly!",
@@ -29,6 +30,29 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      body: _tasksList(),
+    );
+  }
+
+  Widget _tasksList() {
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text(
+            "Do laundry!",
+            style: TextStyle(
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+          subtitle: Text(
+            DateTime.now().toString(),
+          ),
+          trailing: const Icon(
+            Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+        ),
+      ],
     );
   }
 }
