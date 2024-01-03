@@ -14,20 +14,27 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          // color: Colors.red,
-          height: _deviceHeight,
-          width: _deviceWidth,
-          padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _pageTitle(),
-              _bookRideWidget(),
-            ],
-          ),
-        ),
+            // color: Colors.red,
+            height: _deviceHeight,
+            width: _deviceWidth,
+            padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _pageTitle(),
+                    _bookRideWidget(),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: _astroImageWidget(),
+                ),
+              ],
+            )),
       ),
     );
   }
@@ -45,6 +52,8 @@ class HomePage extends StatelessWidget {
 
   Widget _astroImageWidget() {
     return Container(
+      height: _deviceHeight * 0.5,
+      width: _deviceWidth * 0.65,
       decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.contain,
