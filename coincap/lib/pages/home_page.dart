@@ -105,6 +105,9 @@ class _HomePageState extends State<HomePage> {
           String _imageURL = _data["image"]["large"];
           String _description = _data["description"]["en"];
 
+          Map _exchangeRates = _data["market_data"]["current_price"];
+          print(_exchangeRates);
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
@@ -116,7 +119,9 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext _context) {
-                        return DetailsPage();
+                        return DetailsPage(
+                          rates: _exchangeRates,
+                        );
                       },
                     ),
                   );
