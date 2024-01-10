@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:coincap/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -34,6 +36,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _selectedCoinDropDown(),
+              _dataWidget(),
             ],
           ),
         ),
@@ -74,6 +77,27 @@ class _HomePageState extends State<HomePage> {
         color: Colors.white,
       ),
       underline: Container(),
+    );
+  }
+
+  Widget _dataWidget() {
+    return FutureBuilder(
+      future: _http!.get("/coins/bitcoin"),
+      builder: (BuildContext _context, AsyncSnapshot _snapshot) {
+        if (_snapshot.hasData) {
+          Map _data = jsonDecode(
+            _snapshot.data.toString(),
+          );
+          num _usdPrice = _data["market_data"]["current_price"]["usd"];
+          return Text(_usdPrice.toString());
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        }
+      },
     );
   }
 }
