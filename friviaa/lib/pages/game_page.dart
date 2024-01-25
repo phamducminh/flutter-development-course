@@ -3,9 +3,13 @@ import 'package:friviaa/providers/game_page_provider.dart';
 import 'package:provider/provider.dart';
 
 class GamePage extends StatelessWidget {
+  final String difficultyLevel;
+
   double? _deviceHeight, _deviceWidth;
 
   GamePageProvider? _pageProvider;
+
+  GamePage({required this.difficultyLevel});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class GamePage extends StatelessWidget {
     _deviceWidth = MediaQuery.of(context).size.width;
 
     return ChangeNotifierProvider(
-      create: (_context) => GamePageProvider(context: context),
+      create: (_context) => GamePageProvider(context: context, difficultyLevel: difficultyLevel),
       child: _buildUI(),
     );
   }
