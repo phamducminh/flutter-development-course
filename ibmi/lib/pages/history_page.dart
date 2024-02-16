@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ibmi/widgets/info_card.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -16,21 +17,38 @@ class HistoryPage extends StatelessWidget {
   }
 
   Widget _dataCard() {
-    return Center(
-      child: InfoCard(
-        height: _deviceHeight! * 0.25,
-        width: _deviceWidth! * 0.75,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _statusText("Normal"),
-            _dateText('02/15/2024'),
-            _bmiText('26.98'),
-          ],
-        ),
-      ),
+    return FutureBuilder(
+      future: SharedPreferences.getInstance(),
+      builder: (BuildContext _context, AsyncSnapshot _snapshot) {
+        if (_snapshot.hasData) {
+          final _prefs = _snapshot.data as SharedPreferences;
+          final _date = _prefs.getString('bmi_date');
+          final _data = _prefs.getStringList('bmi_data');
+
+          return Center(
+            child: InfoCard(
+              height: _deviceHeight! * 0.25,
+              width: _deviceWidth! * 0.75,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _statusText(_data![1]),
+                  _dateText(_date!),
+                  _bmiText(_data[0]),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return const Center(
+            child: CupertinoActivityIndicator(
+              color: Colors.blue,
+            ),
+          );
+        }
+      },
     );
   }
 
@@ -45,8 +63,9 @@ class HistoryPage extends StatelessWidget {
   }
 
   Widget _dateText(String _date) {
+    DateTime _parseDate = DateTime.parse(_date);
     return Text(
-      _date,
+      '${_parseDate.day} / ${_parseDate.month} / ${_parseDate.year}',
       style: const TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w300,
@@ -56,7 +75,7 @@ class HistoryPage extends StatelessWidget {
 
   Widget _bmiText(String _bmi) {
     return Text(
-      _bmi,
+      double.parse(_bmi).toStringAsFixed(2),
       style: const TextStyle(
         fontSize: 60,
         fontWeight: FontWeight.w600,
