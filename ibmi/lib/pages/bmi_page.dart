@@ -147,6 +147,7 @@ class _BMIPageState extends State<BMIPage> {
               SizedBox(
                 width: 50,
                 child: CupertinoDialogAction(
+                  key: const Key('weight_minus'),
                   onPressed: () {
                     setState(() {
                       _weight--;
@@ -162,6 +163,7 @@ class _BMIPageState extends State<BMIPage> {
               SizedBox(
                 width: 50,
                 child: CupertinoDialogAction(
+                  key: const Key('weight_plus'),
                   onPressed: () {
                     setState(() {
                       _weight++;
@@ -183,7 +185,7 @@ class _BMIPageState extends State<BMIPage> {
 
   Widget _heightSelectContainer() {
     return InfoCard(
-      height: _deviceHeight! * 0.15,
+      height: _deviceHeight! * 0.18,
       width: _deviceWidth! * 0.90,
       child: Column(
         children: [
